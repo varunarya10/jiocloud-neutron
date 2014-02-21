@@ -51,6 +51,7 @@ class neutron::keystone::auth (
   $configure_endpoint = true,
   $service_type       = 'network',
   $public_protocol    = 'http',
+  $internal_protocol  = 'http',
   $public_address     = '127.0.0.1',
   $admin_address      = '127.0.0.1',
   $internal_address   = '127.0.0.1',
@@ -88,8 +89,8 @@ class neutron::keystone::auth (
     keystone_endpoint { "${region}/${auth_name}":
       ensure       => present,
       public_url   => "${public_protocol}://${public_address}:${real_public_port}/",
-      internal_url => "http://${internal_address}:${port}/",
-      admin_url    => "http://${admin_address}:${port}/",
+      internal_url => "${internal_protocol}://${internal_address}:${port}/",
+      admin_url    => "${internal_protocol}://${admin_address}:${port}/",
     }
 
   }
